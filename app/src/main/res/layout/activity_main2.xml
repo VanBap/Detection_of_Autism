@@ -38,6 +38,7 @@
         android:text="Prediction"
         android:layout_below="@+id/linLayout"
         android:textSize="20dp"
+        android:id="@+id/resView"
         />
 
 </RelativeLayout>
