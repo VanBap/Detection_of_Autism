@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Detection_of_Autism</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
