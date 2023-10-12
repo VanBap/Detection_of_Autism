@@ -103,13 +103,13 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
     void getPermission(){
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
+        //if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
 
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity2.this, new String[]{Manifest.permission.CAMERA}, 11);
 
             }
-        }
+        //}
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -124,7 +124,6 @@ public class MainActivity2 extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 10){
             if(data!=null) {
