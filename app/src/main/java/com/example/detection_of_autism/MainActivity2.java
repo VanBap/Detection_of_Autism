@@ -89,7 +89,7 @@ public class MainActivity2 extends AppCompatActivity {
                     TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
                     // Đang thắc mắc sẽ trả kết quả hiển thị kiểu gì ?
-                    resView.setText(outputFeature0.getFloatArray() + " ");
+                    resView.setText("Van dep trai");
 
                     // Releases model resources if no longer used.
                     model.close();
