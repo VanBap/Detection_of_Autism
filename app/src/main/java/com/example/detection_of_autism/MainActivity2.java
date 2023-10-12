@@ -28,7 +28,7 @@ public class MainActivity2 extends AppCompatActivity {
     private Button predictBtn;
     private TextView resView;
     private ImageView imageView;
-    private Bitmap img;
+    private Bitmap bitmap;
 
 
     @Override
@@ -45,7 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/");
+                intent.setType("image/*");
                 startActivityForResult(intent, 100);
             }
         });
@@ -54,14 +54,14 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                img = Bitmap.createScaledBitmap(img, 128, 128, true);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 128, 128, true);
                 try {
                     LiteModel model = LiteModel.newInstance(getApplicationContext());
 
                     // Creates inputs for reference.
                     TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 150, 150, 3}, DataType.FLOAT32);
                     TensorImage tensorImage = new TensorImage(DataType.FLOAT32);
-                    tensorImage.load(img);
+                    tensorImage.load(bitmap);
 
                     ByteBuffer byteBuffer = tensorImage.getBuffer();
 
@@ -75,7 +75,8 @@ public class MainActivity2 extends AppCompatActivity {
                     // Releases model resources if no longer used.
                     model.close();
 
-                    resView.setText(outputFeature0.getFloatArray()[0] + "\n" + outputFeature0.getFloatArray()[1]);
+                    // Đang thắc mắc sẽ trả kết quả hiển thị kiểu gì ?
+                    resView.setText(outputFeature0.getFloatArray() + " ");
                 } catch (IOException e) {
                     // TODO Handle the exception
                 }
@@ -88,12 +89,15 @@ public class MainActivity2 extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 100){
-            imageView.setImageURI(data.getData());
-            Uri uri = data.getData();
-            try{
-                img = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            } catch(IOException e) {
-                e.printStackTrace();
+            if(data!=null) {
+                imageView.setImageURI(data.getData());
+                Uri uri = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    imageView.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
